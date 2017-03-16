@@ -24,8 +24,8 @@ articleView.handleAuthorFilter = function() {
             that was aselected. Hint: use an attribute selector to find
             those articles that match the value, and then fade them in.
         */
-      $('article').hide();
-      $('article[data-author = "' + $(this).val() + '"]').show();
+      $('article').fadeOut('slow');
+      $('article[data-author = "' + $(this).val() + '"]').fadeIn('slow');
     } else {
       /* Otherwise, we should:
         1. Show all the articles except the template */
@@ -41,8 +41,8 @@ articleView.handleCategoryFilter = function() {
   #author-filter while you're at it! */
   $('#category-filter').on('change', function() {
     if ($(this).val()) {
-      $('article').hide();
-      $('article[data-category = "' + $(this).val() + '"]').show();
+      $('article').fadeOut('slow');
+      $('article[data-category = "' + $(this).val() + '"]').fadeIn('slow');
     } else {
       $('article').not('.template').show();
     }
@@ -57,6 +57,8 @@ articleView.handleMainNav = function () {
       2. Fade in the single .tab-content section that is
         associated with the .tab element's data-content attribute.
     */
+    $('tab-content').hide();
+    $('#about').show();
   });
   $('.main-nav .tab:first').click();
 };
@@ -78,3 +80,4 @@ articleView.setTeasers = function() {
 articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
+articleView.handleMainNav();
