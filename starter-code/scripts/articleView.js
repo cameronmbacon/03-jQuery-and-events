@@ -24,8 +24,8 @@ articleView.handleAuthorFilter = function() {
             that was aselected. Hint: use an attribute selector to find
             those articles that match the value, and then fade them in.
         */
-      $('article').hide();
-      $('article[data-author = "' + $(this).val() + '"]').show();
+      $('article').fadeOut('slow');
+      $('article[data-author = "' + $(this).val() + '"]').fadeIn('slow');
     } else {
       /* Otherwise, we should:
         1. Show all the articles except the template */
@@ -39,15 +39,27 @@ articleView.handleCategoryFilter = function() {
   /* TODO: Just like we do for #author-filter above, we should also handle
   change events on the #category-filter element. Be sure to reset the
   #author-filter while you're at it! */
+  $('#category-filter').on('change', function() {
+    if ($(this).val()) {
+      $('article').fadeOut('slow');
+      $('article[data-category = "' + $(this).val() + '"]').fadeIn('slow');
+    } else {
+      $('article').not('.template').show();
+    }
+    $('#author-filter').val('');
+  });
 };
 
 articleView.handleMainNav = function () {
-  $('.main-nav').on('click', '.tab', function() {
+  $('#about-link').on('click', function() {
+    console.log('clicked on about');
     /* TODO:
       1. Hide all of the .tab-content sections
       2. Fade in the single .tab-content section that is
         associated with the .tab element's data-content attribute.
     */
+    $('article').fadeOut(700);
+    $('#about').hide().fadeIn(1400);
   });
   $('.main-nav .tab:first').click();
 };
@@ -63,8 +75,34 @@ articleView.setTeasers = function() {
 
     // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
   */
+  $('.read-on').on('click', function(e){
+    e.preventDefault();
+    console.log(e);
+    $(this).parent().find('*').show();
+    // $('.article-body *:nth-of-type(n+2)').show();
+    if ($(this).text() === 'Read on'){
+      $(this).html('Show less')
+      console.log($(this).html());
+      // $('.read-on').on('click', function(e){
+      //   e.preventDefault();
+      //   $('.article-body *:nth-of-type(n+2)').hide();
+      // });
+    } else {
+      console.log($(this).html());
+      console.log('in the else if');
+      $(this).html('Read on')
+      $(this).parent().find('*:nth-of-type(n+2)').hide();
+      // $('.read-on').on('click', function(e){
+      //   e.preventDefault();
+      //   $('.article-body *:nth-of-type(n+2)').show();
+      // });
+    }
+  });
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
 articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
