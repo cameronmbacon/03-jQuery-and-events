@@ -51,14 +51,15 @@ articleView.handleCategoryFilter = function() {
 };
 
 articleView.handleMainNav = function () {
-  $('.main-nav').on('click', '.tab', function() {
+  $('#about-link').on('click', function() {
+    console.log('clicked on about');
     /* TODO:
       1. Hide all of the .tab-content sections
       2. Fade in the single .tab-content section that is
         associated with the .tab element's data-content attribute.
     */
-    $('tab-content').hide();
-    $('#about').show();
+    $('article').fadeOut(700);
+    $('#about').hide().fadeIn(1400);
   });
   $('.main-nav .tab:first').click();
 };
@@ -74,6 +75,25 @@ articleView.setTeasers = function() {
 
     // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
   */
+  $('.read-on').on('click', function(e){
+    e.preventDefault();
+    console.log(e);
+    $(this).parent().find('*').show();
+    // $('.article-body *:nth-of-type(n+2)').show();
+    // if ($(this).html('<a href="#" class="read-on">Read on &rarr;</a>')){
+    //   $(this).html('<a href="#" class="read-on">Show less &rarr;</a>')
+    //   $('.read-on').on('click', function(e){
+    //     e.preventDefault();
+    //     $('.article-body *:nth-of-type(n+2)').hide();
+    //   });
+    // } else if ($(this).html('<a href="#" class="read-on">Show less &rarr;</a>')){
+    //   $(this).html('<a href="#" class="read-on">Read on &rarr;</a>')
+    //   $('.read-on').on('click', function(e){
+    //     e.preventDefault();
+    //     $('.article-body *:nth-of-type(n+2)').hide();
+    //   });
+    // }
+  });
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
@@ -81,3 +101,4 @@ articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
 articleView.handleMainNav();
+articleView.setTeasers();

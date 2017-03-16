@@ -37,3 +37,4 @@ sourceData.forEach(function(ele) {
 allArticles.forEach(function(a){
   $('#articles').append(a.toHtml());
 });
+$('#about').hide()
