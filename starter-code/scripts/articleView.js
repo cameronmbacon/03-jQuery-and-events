@@ -27,10 +27,13 @@ articleView.handleAuthorFilter = function() {
       $('.tab-content').each(function() {
         $(this).hide();
       });
-      
+      $(this).show();
     } else {
     /* Otherwise, we should:
         1. Show all the articles except the template */
+      allArticles.forEach(function(a){
+        $('#articles').append(a.toHtml());
+      });
     }
     $('#category-filter').val('');
   });
