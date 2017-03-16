@@ -24,16 +24,12 @@ articleView.handleAuthorFilter = function() {
             that was aselected. Hint: use an attribute selector to find
             those articles that match the value, and then fade them in.
         */
-      $('.tab-content').each(function() {
-        $(this).hide();
-      });
-      $(this).show();
+      $('article').hide();
+      $('article[data-author = "' + $(this).val() + '"]').show();
     } else {
-    /* Otherwise, we should:
+      /* Otherwise, we should:
         1. Show all the articles except the template */
-      allArticles.forEach(function(a){
-        $('#articles').append(a.toHtml());
-      });
+      $('article').not('.template').show();
     }
     $('#category-filter').val('');
   });
@@ -70,3 +66,5 @@ articleView.setTeasers = function() {
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
+articleView.populateFilters();
+articleView.handleAuthorFilter();
