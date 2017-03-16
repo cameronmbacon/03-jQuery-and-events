@@ -80,19 +80,23 @@ articleView.setTeasers = function() {
     console.log(e);
     $(this).parent().find('*').show();
     // $('.article-body *:nth-of-type(n+2)').show();
-    // if ($(this).html('<a href="#" class="read-on">Read on &rarr;</a>')){
-    //   $(this).html('<a href="#" class="read-on">Show less &rarr;</a>')
-    //   $('.read-on').on('click', function(e){
-    //     e.preventDefault();
-    //     $('.article-body *:nth-of-type(n+2)').hide();
-    //   });
-    // } else if ($(this).html('<a href="#" class="read-on">Show less &rarr;</a>')){
-    //   $(this).html('<a href="#" class="read-on">Read on &rarr;</a>')
-    //   $('.read-on').on('click', function(e){
-    //     e.preventDefault();
-    //     $('.article-body *:nth-of-type(n+2)').hide();
-    //   });
-    // }
+    if ($(this).text() === 'Read on'){
+      $(this).html('Show less')
+      console.log($(this).html());
+      // $('.read-on').on('click', function(e){
+      //   e.preventDefault();
+      //   $('.article-body *:nth-of-type(n+2)').hide();
+      // });
+    } else {
+      console.log($(this).html());
+      console.log('in the else if');
+      $(this).html('Read on')
+      $(this).parent().find('*:nth-of-type(n+2)').hide();
+      // $('.read-on').on('click', function(e){
+      //   e.preventDefault();
+      //   $('.article-body *:nth-of-type(n+2)').show();
+      // });
+    }
   });
 };
 
