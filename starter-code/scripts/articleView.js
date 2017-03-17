@@ -5,7 +5,7 @@ articleView.populateFilters = function() {
   $('article').not('.template').each(function() {
     var authorName, category, optionTag;
     authorName = $(this).find('address a').text();
-    optionTag = '<option value="' + authorName + '">' + authorName + '</option>';
+    optionTag = `<option value="${authorName}">${authorName}</option>`;
     $('#author-filter').append(optionTag);
     category = $(this).attr('data-category');
     optionTag = '<option value="' + category + '">' + category + '</option>';
@@ -25,11 +25,11 @@ articleView.handleAuthorFilter = function() {
             those articles that match the value, and then fade them in.
         */
       $('article').fadeOut('slow');
-      $('article[data-author = "' + $(this).val() + '"]').fadeIn('slow');
+      $(`article[data-author = "${$(this).val()}"]`).fadeIn('slow');
     } else {
       /* Otherwise, we should:
         1. Show all the articles except the template */
-      $('article').not('.template').show();
+      $('article').not('.template').fadeIn();
     }
     $('#category-filter').val('');
   });
@@ -52,7 +52,6 @@ articleView.handleCategoryFilter = function() {
 
 articleView.handleMainNav = function () {
   $('#about-link').on('click', function() {
-    console.log('clicked on about');
     /* TODO:
       1. Hide all of the .tab-content sections
       2. Fade in the single .tab-content section that is
@@ -64,7 +63,7 @@ articleView.handleMainNav = function () {
   $('.main-nav .tab:first').click();
 };
 
-articleView.setTeasers = function() {
+articleView.setArticlePreviews = function() {
   // Truncate logic to show only first two elements within the article body.
   $('.article-body *:nth-of-type(n+2)').hide();
   /* TODO: Add a delegated event handler to reveal the remaining paragraphs.
@@ -77,32 +76,21 @@ articleView.setTeasers = function() {
   */
   $('.read-on').on('click', function(e){
     e.preventDefault();
-    console.log(e);
-    $(this).parent().find('*').show();
-    // $('.article-body *:nth-of-type(n+2)').show();
+    $(this).parent().find('*').fadeIn();
     if ($(this).text() === 'Read on'){
       $(this).html('Show less')
-      console.log($(this).html());
-      // $('.read-on').on('click', function(e){
-      //   e.preventDefault();
-      //   $('.article-body *:nth-of-type(n+2)').hide();
-      // });
     } else {
-      console.log($(this).html());
-      console.log('in the else if');
       $(this).html('Read on')
       $(this).parent().find('*:nth-of-type(n+2)').hide();
-      // $('.read-on').on('click', function(e){
-      //   e.preventDefault();
-      //   $('.article-body *:nth-of-type(n+2)').show();
-      // });
     }
   });
 };
-
 // TODO: Invoke all of the above functions (I mean, methods!):
-articleView.populateFilters();
-articleView.handleAuthorFilter();
-articleView.handleCategoryFilter();
-articleView.handleMainNav();
-articleView.setTeasers();
+
+$(document).ready(function(){
+  articleView.populateFilters();
+  articleView.handleAuthorFilter();
+  articleView.handleCategoryFilter();
+  articleView.handleMainNav();
+  articleView.setArticlePreviews();
+});
